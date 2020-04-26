@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+    postgres:
+        image: postgres:10.3
+        restart: always
+        ports:
+            - '6002:5432'
+        environment:
+            POSTGRES_USER: root 
+            POSTGRES_PASSWORD: root
+            POSTGRES_HOST: postgres
+            POSTGRES_DB: test_go
+        volumes:
+            - postgres:/var/lib/postgresql/data
+    app:
+        build:
+            context: . # Use an image built from the specified dockerfile in the current directory.
+            dockerfile: Dockerfile
+        ports:
+            - '8123:8123'
+        
+volumes:
+    postgres: ~
+    
